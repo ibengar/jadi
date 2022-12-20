@@ -1,9 +1,10 @@
 import express from 'express';
 import path from 'path';
+import { qqRequest } from './qq-ai';
 import multer from 'multer';
 import { Response } from 'express-serve-static-core';
 import fs from 'fs';
-import { JadiAnime } from 'jadianime-ts';
+
 
 const app = express();
 const port = 3000;
@@ -30,17 +31,10 @@ app.post(
     if (path.extname(oriName).toLowerCase() === ".png" || path.extname(oriName).toLowerCase() === ".jpg" || path.extname(oriName).toLowerCase() === ".jpeg") {
       fs.rename(tempPath, targetPath, async (err: any) => {
         if (err) return handleError(err, res);
-        try {
-          let image = await JadiAnime(targetPath)
-          if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath)
-          if (fs.existsSync(targetPath)) fs.unlinkSync(targetPath)
-          let url: string = image.img;
-          res.redirect(url);
-        } catch (e: any) {
-          if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath)
-          if (fs.existsSync(targetPath)) fs.unlinkSync(targetPath)
-          res.send(e.toString())
-        }
+        const image = await qqRequest(targetPath)
+        if(fs.existsSync(tempPath)) fs.unlinkSync(tempPath)
+        if(fs.existsSync(targetPath)) fs.unlinkSync(targetPath)
+        res.json(image)
       });
     } else {
       fs.unlink(tempPath, err => {
@@ -49,7 +43,7 @@ app.post(
         res
           .status(403)
           .contentType("text/plain")
-          .end("Only image are allowed!");
+          .end("Only .png files are allowed!");
       });
     }
   }
