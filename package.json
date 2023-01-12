@@ -1,5 +1,5 @@
 {
-  "name": "selfieanime-web-ts",
+  "name": "jadianime-ts",
   "version": "2.0.0",
   "description": "",
   "main": "index.js",
@@ -26,7 +26,7 @@
     "https-proxy-agent": "^5.0.1",
     "md5": "^2.3.0",
     "multer": "^1.4.5-lts.1",
-"socks-proxy-agent": "^7.0.0",
+   "socks-proxy-agent": "^7.0.0",
     "node-base64-image": "^2.0.4",
     "path": "^0.12.7",
     "ts-node": "^10.9.1",
