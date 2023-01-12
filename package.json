@@ -9,6 +9,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+   "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
   "devDependencies": {
     "@types/async-retry": "^1.4.5",
     "@types/md5": "^2.3.2",
